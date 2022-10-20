@@ -1,0 +1,31 @@
+* {
+    margin: 0;
+    padding: 0;
+
+    }
+
+.divCards {
+
+display: flex;
+justify-content: center;
+justify-content: space-evenly;
+
+
+}
+
+.title {
+
+    text-align: center;
+    margin-top: 30px;
+   
+
+}
+
+.subTitle {
+
+    text-align: center;
+    margin-bottom: 30px;
+    text-decoration: underline;
+
+
+}
