@@ -21,8 +21,9 @@ newUserOn();
 
 class Product {
 
-    constructor(name, price, stock){
-    
+    constructor(id, name, price, stock){
+        
+        this.id = id
         this.name = name
         this.price = price
         this.stock = stock
@@ -31,10 +32,10 @@ class Product {
 
 }
 
-const product1 = new Product ('Buzo Verde', 3200, 5)
-const product2 = new Product ('Buzo Rojo', 4000, 2)
-const product3 = new Product ('Buzo Azul', 3500, 6)
-const product4 = new Product ('Buzo Blanco', 5000, 1)
+const product1 = new Product (1,'Buzo Verde', 3200, 2)
+const product2 = new Product (2,'Buzo Rojo', 4000, 2)
+const product3 = new Product (3,'Buzo Azul', 3500, 6)
+const product4 = new Product (4,'Buzo Blanco', 5000, 0)
 
 const PRODUCTS = [product1,product2,product3,product4];
  
@@ -51,31 +52,66 @@ let userBuy = parseInt(prompt('Que producto desea comprar?  1- Buzo Verde $3200 
 switch(userBuy){
 
     case 1:
-        CART.push(product1);
-        total += product1.price
-        
+        if(product1.stock > 0 ){
+
+            CART.push(product1);
+            total += product1.price
+            product1.stock -= 1;
+            alert(`Compraste ${product1.name} quedó ${product1.stock} de stock`)
+
+        }
+        else{
+            alert("No hay stock")
+        }
+
         break;
     case 2:
-        CART.push(product2);
-        total += product2.price
+        if(product2.stock > 0 ){
+
+            CART.push(product2);
+            total += product2.price
+            product2.stock -= 1;
+            alert(`Compraste ${product2.name} quedó ${product2.stock} de stock`)
+        }
+        else{
+            alert("No hay stock")
+        }
         break;
     case 3:
-        CART.push(product3);
-        total += product2.price
+        if(product3.stock > 0 ){
+
+            CART.push(product3);
+            total += product3.price
+            product3.stock -= 1;
+            alert(`Compraste ${product3.name} quedó ${product3.stock} de stock`)
+        }
+        else{
+            alert("No hay stock")
+        }
         break;
     case 4:
-        CART.push(product4);
-        total += product2.price
+        if(product4.stock > 0 ){
+
+            CART.push(product4);
+            total += product4.price
+            product4.stock -= 1;
+            alert(`Compraste ${product4.name} quedó ${product4.stock} de stock`)
+        }
+        else{
+            alert("No hay stock")
+        }
         break;
+    }
+
+
+    condition = prompt('Desea seguir comprando? 1- Si 2- No')
+
+    if(condition!=1){
+    alert(`Tu compra ha sido realizada, el total del monto es: $${CART.map(el => el.price).reduce(
+        (previousValue, currentValue) => previousValue + currentValue, 0)}`)
+    }
 }
 
-condition = prompt('Desea seguir comprando? 1- Si 2- No')
-
-if(condition == 2){
-
-    alert(`Tu compra ha sido realizada, el total del monto es: $${total}`)
-
-}}
 
 
 
@@ -92,14 +128,7 @@ if(condition == 2){
 
 
 
-
-
-
-
-
-
-
-
+// METODOS DE PRUEBA 
 
 // Suma de precios
 
@@ -141,7 +170,5 @@ if (PRODUCTS.filter((el)=> el.stock > 1).length > 0 ) {
 
 // Ordeno productos por precio de menor a mayor 
 
-let productsOrder = PRODUCTS.sort((a,b) => a.price - b.price)
 
 console.log(productsOrder)
-
