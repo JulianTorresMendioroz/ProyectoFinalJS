@@ -29,3 +29,44 @@ justify-content: space-evenly;
 
 
 }
+
+.divCards{
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    text-align: center;
+
+
+}
+
+.card{
+
+    width: 18rem;
+    border-radius: 20px;
+    
+    
+
+}
+
+.imgProd{
+
+border-radius: 100px;
+display: flex;
+justify-content: space-evenly;
+
+
+}
+
+.btnAddCart{
+
+border-radius: 100px;
+background-color: #02779e;
+color: white;
+border-color: black;
+height: 40px;
+
+
+
+
+}
