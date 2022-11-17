@@ -54,7 +54,7 @@ console.log(products)
 
 const divCards = document.querySelector(".divCards"); 
 
-console.log(divCards)
+console.log('divcards', divCards)
 
 products.forEach((product) => {
 
@@ -77,20 +77,67 @@ products.forEach((product) => {
 
 let buttonsAddCart = document.querySelectorAll('.btnAddCart')
 
-console.log('button', buttonsAddCart)
-
 buttonsAddCart.forEach(button => {button.addEventListener('click', addCart)})
 
 function addCart(e) {
 
-    let productOnCart = products.find(el => el.id === e.currentTarget.id);
+    let productOnCart = products.find(el => el.id == e.currentTarget.id);
 
-    console.log('currentid',e.currentTarget.id)
-    
-    console.log(productOnCart)
     CART.push(productOnCart);
 
 } 
+
+let buttonCart = document.querySelector('.seeCartButton')
+
+console.log('button',buttonCart)
+
+let divCart = document.getElementById('divCart')
+
+buttonCart.addEventListener('click', ()=> {
+
+    let divSeeProdCart = document.createElement('div')
+
+        console.log('DIVPRODS', divSeeProdCart)
+
+        divSeeProdCart.classList.add('divSeeProds')
+
+   CART.forEach((prod) => {
+
+        divSeeProdCart.innerHTML = `
+        
+            <h1>${prod.name}</h1>
+            <h1>${prod.price}</h1>
+            <img src"${prod.img}" alt="BuzoImg"`
+
+            divCart.append(divSeeProdCart)
+   })
+
+   
+
+})
+
+
+
+
+
+
+
+
+// let divCart = document.querySelector('.divCart')
+
+// let buttonCart = document.createElement('button')
+
+// buttonCart.innerText = 'Ver carrito'
+
+// buttonCart.classList.add('buttonCart')
+
+// divCart.append(buttonCart)
+
+
+
+
+
+
 
 
 

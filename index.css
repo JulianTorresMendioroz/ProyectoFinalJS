@@ -36,6 +36,7 @@ justify-content: space-evenly;
     flex-direction: row;
     justify-content: space-evenly;
     text-align: center;
+    padding-bottom: 50px;
 
 
 }
@@ -66,7 +67,15 @@ color: white;
 border-color: black;
 height: 40px;
 
+}
 
+.seeCartButton {
+
+    color:  darkcyan;
+    border-radius: 20px;
+    display: flex;
+    
+    
 
 
 }
