@@ -1,22 +1,22 @@
-const CART = [];
+let CART = [];
 
 console.log('CART:',CART)
 
-function newUserOn() { 
+// function newUserOn() { 
 
-let newUser = prompt('Hola, ingrese su nuevo usuario')
+// let newUser = prompt('Hola, ingrese su nuevo usuario')
 
-if((newUser == '') || (newUser == ' ')) {
+// if((newUser == '') || (newUser == ' ')) {
 
-    console.log('Debe ingresar un usuario para poder continuar')
+//     console.log('Debe ingresar un usuario para poder continuar')
 
-}else{
+// }else{
 
-    alert(`Bienvenido a CapHoodies ${newUser}`)
+//     alert(`Bienvenido a CapHoodies ${newUser}`)
 
-}}
+// }}
 
-//newUserOn();
+// //newUserOn();
 
 const products = [
     
@@ -67,31 +67,32 @@ products.forEach((product) => {
     <br>
     <h5>${product.name}</h5>
     <p>PRECIO: $${product.price}</p>
-    <button class="btnAddCart" id="${product.id}">Agregar al carrito</button>
+    
     `;
 
     divCards.append(div)
 
+    let buttonsAddCart = document.createElement('button')
+    buttonsAddCart.classList.add('btnAddCart')
+    buttonsAddCart.innerText = 'Agregar al carrito'
+
+    div.append(buttonsAddCart)
+    
+    buttonsAddCart.addEventListener('click', () => {
+
+            CART.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                stock: product.stock,
+                img: product.img
+
+            })
+    })
+
+    
+
 })
-
-let buttonsAddCart = document.querySelectorAll('.btnAddCart')
-
-console.log('button', buttonsAddCart)
-
-buttonsAddCart.forEach(button => {button.addEventListener('click', addCart)})
-
-function addCart(e) {
-
-    let productOnCart = products.find(el => el.id == e.currentTarget.id);
-
-    console.log('currentid',e.currentTarget.id)
-
-    console.log(productOnCart)
-    CART.push(productOnCart);
-} 
-
-
-
 
 let buttonCart = document.querySelector('.seeCartButton')
 
@@ -124,24 +125,20 @@ buttonCart.addEventListener('click', ()=> {
 
             divCart.append(divSeeProdCart) 
 
-
-    
-   })
-
-   let buttonDelete = document.querySelectorAll('.buttonDelete')
+  let buttonDelete = document.querySelectorAll('.buttonDelete')
 
    buttonDelete.forEach(button => {button.addEventListener('click', deleteArticle)})
 
-   function deleteArticle(id) {
+   function deleteArticle() {
 
-       let deleteId = CART.find(el => el.id === id)
-
-       console.log(deleteId)
-
+        deleteId(product.id)
 
    }
+    
+   })
 
  
+
 
 
    let totalCartDiv = document.querySelector('.divTotal')    
@@ -162,10 +159,20 @@ buttonCart.addEventListener('click', ()=> {
 
     totalCartDiv.append(subDivTotal)
 
-
-
-
 })
+
+
+const deleteId = (id) => {
+
+    let idProd = CART.find((el) => el.id === id)
+
+    CART = CART.filter((cartId) => {
+
+        return cartId != idProd
+
+    })
+    console.log('ID DE PRODUCTOS ARRAY',idProd)
+}
 
 
 
