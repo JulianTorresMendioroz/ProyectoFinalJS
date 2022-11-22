@@ -125,20 +125,29 @@ buttonCart.addEventListener('click', ()=> {
 
             divCart.append(divSeeProdCart) 
 
-  let buttonDelete = document.querySelectorAll('.buttonDelete')
 
-   buttonDelete.forEach(button => {button.addEventListener('click', deleteArticle)})
+            let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
 
-   function deleteArticle() {
+            buttonDelete.addEventListener('click', () => {
 
-        deleteId(product.id)
+                deleteId(product.id)
+            })
 
-   }
+
+            // buttonDelete.forEach(button => {button.addEventListener('click', deleteArticle)})
+         
+            // function deleteArticle() {
+         
+            //      deleteId(product.id)
+         
+         
+         
+            // }
+         
     
    })
 
- 
-
+  
 
 
    let totalCartDiv = document.querySelector('.divTotal')    
@@ -171,7 +180,7 @@ const deleteId = (id) => {
         return cartId != idProd
 
     })
-    console.log('ID DE PRODUCTOS ARRAY',idProd)
+    console.log('ID cart',idProd)
 }
 
 
