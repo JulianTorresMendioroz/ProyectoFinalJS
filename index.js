@@ -39,6 +39,13 @@ const divCards = document.querySelector(".divCards");
 
 console.log('divcards', divCards)
 
+
+let totalCartDiv = document.querySelector('.divTotal')    
+    
+let subDivTotal = document.createElement('div')
+
+    subDivTotal.classList.add('subDivTotal')
+
 // Ver productos en home 
 
 products.forEach((product) => {
@@ -95,15 +102,17 @@ products.forEach((product) => {
 
           divCart.append(divSeeProdCart) 
 
+
+          updatedCart()
+
+
           let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
 
           buttonDelete.addEventListener('click', () => {
      
             deleteId(product.id)
+            updatedCart()
 
-
-
-              
           }) 
      })
 })
@@ -136,6 +145,23 @@ function updatedCart () {
     
               divCart.append(divSeeProdCart) 
 
+              let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
+       
+              console.log('TOTALCARRITO',totalOnCart)
+      
+              subDivTotal.innerHTML = `
+          
+              <h3 class="totalOnCart">SU TOTAL DE LA COMPRA ES: $${totalOnCart}</h3>
+          
+              `;
+
+              totalCartDiv.append(subDivTotal)
+
+              if(CART.length>=1){
+                       
+                totalCartDiv.style.display = "flex"
+              }
+
               let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
 
           buttonDelete.addEventListener('click', () => {
@@ -154,6 +180,10 @@ const deleteId = (id) => {
     
 	CART.splice(indexProd, 1);
 
+    if(CART.length==0){
+        totalCartDiv.style.display = "none";
+    }
+ 
     updatedCart()
 
 }
@@ -166,7 +196,7 @@ const deleteId = (id) => {
     
         subDivTotal.classList.add('subDivTotal')
 
-        totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
+       let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
 
         console.log('TOTALCARRITO',totalOnCart)
 
@@ -176,7 +206,20 @@ const deleteId = (id) => {
     
         `;
 
-        totalCartDiv.append(subDivTotal)
+        totalCartDiv.appendChild(subDivTotal)
     
     }
+
+// Guardar datos en local storage
+
+function SaveLocalStorage (key, value) {
+
+    localStorage.setItem(key, value)
+
+    SaveLocalStorage('Product List', JSON.stringify(products))
+
+
+    
+}
+
 
