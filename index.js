@@ -91,27 +91,21 @@ products.forEach((product) => {
       <h5>${product.name}</h5>
       <p>PRECIO: $${product.price}</p>
       <button class="buttonDelete">ELIMINAR ARTICULO</button>`;
-      
+
 
           divCart.append(divSeeProdCart) 
 
-
-        
           let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
 
           buttonDelete.addEventListener('click', () => {
      
             deleteId(product.id)
 
+
+
               
           }) 
      })
-
-     // Suma precio carrito
-
-     totalCart()
-
-
 })
 
 })
@@ -146,24 +140,13 @@ function updatedCart () {
 
           buttonDelete.addEventListener('click', () => {
 
+            deleteId(product.id)
             
-     
-              deleteId(product.id)
-
-              totalCart()
-
 
           })
-
-
-      
-
-        
     })
 
 }
-
-
 
 const deleteId = (id) => {
 
@@ -175,16 +158,18 @@ const deleteId = (id) => {
 
 }
 
-
     const totalCart = () => {
 
-        let totalCartDiv = document.querySelector('.divTotal')    
+        let totalCartDiv = document.querySelectorAll('.divTotal')    
     
         let subDivTotal = document.createElement('div')
     
         subDivTotal.classList.add('subDivTotal')
+
         totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
+
         console.log('TOTALCARRITO',totalOnCart)
+
         subDivTotal.innerHTML = `
     
         <h3 class="totalOnCart">SU TOTAL DE LA COMPRA ES: $${totalOnCart}</h3>
