@@ -1,16 +1,30 @@
-[{
-        "id": 1
-    
+[
+    {
+        "id": "1",
+        "name": "Buzo Rojo",
+        "price": 3200,
+        "stock": 2,
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_724708-MLA51441220077_092022-F.webp"
     },
     {
-        "id": 2
-    
+        "id": "2",
+        "name": "Buzo Gris",
+        "price": 4000,
+        "stock": 4,
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_787857-MLA51441263066_092022-F.webp"
     },
     {
-        "id": 3
-    
+        "id": "3",
+        "name": "Buzo Marron",
+        "price": 3500,
+        "stock": 6,
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_988232-MLA51543263229_092022-F.webp"
     },
     {
-        "id": 4
-    
-    }]
+        "id": "4",
+        "name": "Buzo Rosa",
+        "price": 4000,
+        "stock": 3,
+        "img": "https://http2.mlstatic.com/D_NQ_NP_2X_903891-MLA51441157496_092022-F.webp."
+    }
+]

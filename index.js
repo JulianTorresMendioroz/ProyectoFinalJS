@@ -1,139 +1,54 @@
 let CART = [];
 
-console.log('CART:',CART)
+console.log("CART:", CART);
 
-const products = [
+let divCards = document.querySelector(".divCards");
+
+divCards.classList.add(".divCards");
+
+fetch("/products.json")
+  .then((res) => res.json())
+  .then((products) => {
+    products.forEach((product) => {
+      let div = document.createElement("div");
+
+      div.classList.add("card");
+
+      div.innerHTML = `
     
-{
-    id: 1,
-    name: 'Buzo Rojo',
-    price: 3200,
-    stock: 2,
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_724708-MLA51441220077_092022-F.webp'
-},
-{
-    id: 2,
-    name: 'Buzo Gris',
-    price: 4000,
-    stock: 4,
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_787857-MLA51441263066_092022-F.webp'
-},
-{
-    id: 3,
-    name: 'Buzo Marron',
-    price: 3500,
-    stock: 6,
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_724708-MLA51441220077_092022-F.webp'
-},
-{
-    id: 4,
-    name: 'Buzo Rosa',
-    price: 4000,
-    stock: 3,
-    img: 'https://http2.mlstatic.com/D_NQ_NP_2X_903891-MLA51441157496_092022-F.webp.'
-}];
- 
-console.log(products)
+        <img class="imgProd"src="${product.img}" alt="BuzoImg">
+        <br>
+        <h5>${product.name}</h5>
+        <p>PRECIO: $${product.price}</p>
+        
+        `;
 
-const divCards = document.querySelector(".divCards"); 
+      divCards.append(div);
 
-console.log('divcards', divCards)
+      let buttonsAddCart = document.createElement("button");
+      buttonsAddCart.classList.add("btnAddCart");
+      buttonsAddCart.innerText = "Agregar al carrito";
 
+      div.append(buttonsAddCart);
 
-let totalCartDiv = document.querySelector('.divTotal')    
-    
-let subDivTotal = document.createElement('div')
+      // Push al carrito
 
-    subDivTotal.classList.add('subDivTotal')
+      buttonsAddCart.addEventListener("click", () => {
+        CART.push(product);
 
-// Ver productos en home 
+        let divCart = document.getElementById("divCart");
 
-products.forEach((product) => {
+        divCart.classList.add("divCards");
 
-    let div = document.createElement('div');
+        divCart.innerHTML = "";
 
-    div.classList.add('card');
+        CART.forEach((product) => {
+          let divSeeProdCart = document.createElement("div");
 
-    div.innerHTML = `
+          console.log("DIVPRODS", divSeeProdCart);
 
-    <img class="imgProd"src="${product.img}" alt="BuzoImg">
-    <br>
-    <h5>${product.name}</h5>
-    <p>PRECIO: $${product.price}</p>
-    
-    `;
+          divSeeProdCart.classList.add("card");
 
-    divCards.append(div)
-
-    let buttonsAddCart = document.createElement('button')
-    buttonsAddCart.classList.add('btnAddCart')
-    buttonsAddCart.innerText = 'Agregar al carrito'
-
-    div.append(buttonsAddCart)
-    
-    // Push al carrito
-
-    buttonsAddCart.addEventListener('click', () => {
-
-            CART.push(product)
-
-    let divCart = document.getElementById('divCart')
-
-    divCart.classList.add('divCards')
-
-    divCart.innerHTML = "";
-
-    CART.forEach((product) => {
-
-    let divSeeProdCart = document.createElement('div')
-
-    console.log('DIVPRODS', divSeeProdCart)
-
-    divSeeProdCart.classList.add('card')
-
-      divSeeProdCart.innerHTML = `
-
-      <img class="imgProd"src="${product.img}" alt="BuzoImg">
-      <br>
-      <h5>${product.name}</h5>
-      <p>PRECIO: $${product.price}</p>
-      <button class="buttonDelete">ELIMINAR ARTICULO</button>`;
-
-
-          divCart.append(divSeeProdCart) 
-
-
-          updatedCart()
-
-
-          let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
-
-          buttonDelete.addEventListener('click', () => {
-     
-            deleteId(product.id)
-            updatedCart()
-
-          }) 
-     })
-})
-
-})
-
-// Actualizar carrito 
-
-function updatedCart () {
-
-    
-    divCart.innerHTML = "";
-
-    CART.forEach((product) => {
-    
-        let divSeeProdCart = document.createElement('div')
-    
-        console.log('DIVPRODS', divSeeProdCart)
-    
-        divSeeProdCart.classList.add('card')
-    
           divSeeProdCart.innerHTML = `
     
           <img class="imgProd"src="${product.img}" alt="BuzoImg">
@@ -141,85 +56,114 @@ function updatedCart () {
           <h5>${product.name}</h5>
           <p>PRECIO: $${product.price}</p>
           <button class="buttonDelete">ELIMINAR ARTICULO</button>`;
-          
-    
-              divCart.append(divSeeProdCart) 
 
-              let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
-       
-              console.log('TOTALCARRITO',totalOnCart)
-      
-              subDivTotal.innerHTML = `
+          divCart.append(divSeeProdCart);
+
+          updatedCart();
+
+          let buttonDelete = divSeeProdCart.querySelector(".buttonDelete");
+
+          buttonDelete.addEventListener("click", () => {
+            deleteId(product.id);
+            updatedCart();
+          });
+        });
+      });
+    });
+  });
+
+let totalCartDiv = document.querySelector(".divTotal");
+
+let subDivTotal = document.createElement("div");
+
+subDivTotal.classList.add("subDivTotal");
+
+// Actualizar vista del carrito
+
+function updatedCart() {
+  divCart.innerHTML = "";
+
+  CART.forEach((product) => {
+    let divSeeProdCart = document.createElement("div");
+
+    console.log("DIVPRODS", divSeeProdCart);
+
+    divSeeProdCart.classList.add("card");
+
+    divSeeProdCart.innerHTML = `
+    
+          <img class="imgProd"src="${product.img}" alt="BuzoImg">
+          <br>
+          <h5>${product.name}</h5>
+          <p>PRECIO: $${product.price}</p>
+          <button class="buttonDelete">ELIMINAR ARTICULO</button>`;
+
+    divCart.append(divSeeProdCart);
+
+    let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0);
+
+    console.log("TOTALCARRITO", totalOnCart);
+
+    subDivTotal.innerHTML = `
           
               <h3 class="totalOnCart">SU TOTAL DE LA COMPRA ES: $${totalOnCart}</h3>
           
               `;
 
-              totalCartDiv.append(subDivTotal)
+    totalCartDiv.append(subDivTotal);
 
-              if(CART.length>=1){
-                       
-                totalCartDiv.style.display = "flex"
-              }
+    if (CART.length >= 1) {
+      totalCartDiv.style.display = "flex";
+    }
 
-              let buttonDelete = divSeeProdCart.querySelector('.buttonDelete')
+    let buttonDelete = divSeeProdCart.querySelector(".buttonDelete");
 
-          buttonDelete.addEventListener('click', () => {
-
-            deleteId(product.id)
-            
-
-          })
-    })
-
+    buttonDelete.addEventListener("click", () => {
+      deleteId(product.id);
+    });
+  });
 }
+
+// Eliminar productos del carrito 
 
 const deleteId = (id) => {
+  let indexProd = CART.findIndex((prod) => prod.id === id);
 
-    let indexProd = CART.findIndex(prod => prod.id === id);
-    
-	CART.splice(indexProd, 1);
+  CART.splice(indexProd, 1);
 
-    if(CART.length==0){
-        totalCartDiv.style.display = "none";
-    }
- 
-    updatedCart()
+  if (CART.length == 0) {
+    totalCartDiv.style.display = "none";
+  }
 
-}
+  updatedCart();
+};
 
-    const totalCart = () => {
+// Suma total del carrito
 
-        let totalCartDiv = document.querySelectorAll('.divTotal')    
-    
-        let subDivTotal = document.createElement('div')
-    
-        subDivTotal.classList.add('subDivTotal')
+const totalCart = () => {
+  let totalCartDiv = document.querySelectorAll(".divTotal");
 
-       let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0)
+  let subDivTotal = document.createElement("div");
 
-        console.log('TOTALCARRITO',totalOnCart)
+  subDivTotal.classList.add("subDivTotal");
 
-        subDivTotal.innerHTML = `
+  let totalOnCart = CART.reduce((acc, el) => acc + el.price, 0);
+
+  console.log("TOTALCARRITO", totalOnCart);
+
+  subDivTotal.innerHTML = `
     
         <h3 class="totalOnCart">SU TOTAL DE LA COMPRA ES: $${totalOnCart}</h3>
     
         `;
 
-        totalCartDiv.appendChild(subDivTotal)
-    
-    }
+  totalCartDiv.appendChild(subDivTotal);
+};
 
 // Guardar datos en local storage
 
-function SaveLocalStorage (key, value) {
+function SaveLocalStorage(key, value) {
+  localStorage.setItem(key, value);
 
-    localStorage.setItem(key, value)
-
-    SaveLocalStorage('Product List', JSON.stringify(products))
-
-
-    
+  SaveLocalStorage("Product List", JSON.parse(products));
 }
-
-
